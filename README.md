@@ -1,2 +1,2 @@
-# GraphQL-API using NodeJS and ExpressJS
-A GraphQL API using NodeJS and ExpressJS
+# GraphQL-API-salesforce
+A GraphQL API Integrated with Salesforce
