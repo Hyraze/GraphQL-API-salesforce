@@ -1,57 +1,41 @@
 'use strict'
 
-const{ ApolloServer, gql } = require('apollo-server')
-const port = process.env.PORT || 8080
-const typeDefs = gql`
-type Query {
-    helloTrailblazers: String
-    listAccounts(status:Status): [Account!]!
-    }
+const http = require('http')
+const express = require('express')
+const{ ApolloServer, gql } = require('apollo-server-express')
+const db = require(',/models')
+const { typeDefs, resolvers } = require('./graphql')
+const port = +process.env.PORT || 8080
+const app = express()
 
-type Account {
-    name: String!
-    status: Status
-}
+const server = http.createServer(app)
+const graphqlServer = new ApolloServer({
 
-enum Status {
-    ACTIVE
-    INACTIVE
-}
-`
-const accounts = [
-    {
-        name: 'Abhijit',
-        status: 'INACTIVE'
-    },
-    {
-        name: 'Criston',
-        status: 'ACTIVE'
-    }
-]
-
-const resolvers = {
-    Query: {
-        helloTrailblazers() {
-            return 'Hey GraphQL!'
-        },
-        listAccounts(_, args){
-            const { status} =args
-
-            if (!status) return accounts
-
-            return accounts.filter(a => a.status === status)
-        }
-    }
-}
-
-const server = new ApolloServer({
     typeDefs,
     resolvers,
-    playground:true,
-    tracing:true
+    context ({ req }){
+        return {
+            db
+        }
+    },
+
+  playground:true,
+  introspection: true
 })
 
-server.listen(port).then(({ url }) => {
-    console.log(`Listening on ${url}`)
+app.get('/', (req,res) => {
+    res.redirect('/graphql')
+})
+
+graphqlServer.applyMiddleware({
+    app
+})
+
+server.listen(port,() => {
+    console.log(`GraphQL Server running on port ${port}`)
 
 })
+
+
+
+
