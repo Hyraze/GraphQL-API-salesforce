@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         description: DataTypes.STRING,
         approved: DataTypes.STRING
     }, {})
-    Customer.associate = function (models) {
+    Property.associate = function (models) {
         //associations can be defined here
     }
-    return Customer
+    return Property
 } 
