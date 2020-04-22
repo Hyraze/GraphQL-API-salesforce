@@ -1,6 +1,6 @@
 
 module.exports = {
-  username: 'sales',
+  username: 'hyraze',
   password: 'sales',
   database: 'salesdb',
   host: '127.0.0.1',
