@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.12.0",
+    "apollo-server": "^2.25.3",
     "pg": "^8.0.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.6"
